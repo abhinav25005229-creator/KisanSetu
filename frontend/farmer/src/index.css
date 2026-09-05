@@ -1,0 +1,175 @@
+* {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+}
+
+body {
+  font-family: Arial, sans-serif;
+  background: #f5f7f2;
+  color: #1f2937;
+}
+
+button,
+input {
+  font: inherit;
+}
+
+.auth-page {
+  min-height: 100vh;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  padding: 20px;
+}
+
+.auth-card {
+  width: 100%;
+  max-width: 430px;
+  background: white;
+  padding: 30px 24px;
+  border-radius: 20px;
+  box-shadow: 0 8px 30px rgba(0, 0, 0, 0.08);
+}
+
+.logo {
+  font-size: 48px;
+  text-align: center;
+}
+
+.auth-card h1 {
+  text-align: center;
+  margin-top: 8px;
+}
+
+.subtitle {
+  text-align: center;
+  margin: 8px 0 25px;
+  color: #6b7280;
+}
+
+.auth-card form {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+}
+
+.auth-card label {
+  font-weight: 600;
+  margin-top: 8px;
+}
+
+.auth-card input {
+  width: 100%;
+  padding: 14px;
+  border: 1px solid #d1d5db;
+  border-radius: 10px;
+  outline: none;
+}
+
+.auth-card input:focus {
+  border-color: #16a34a;
+}
+
+.auth-card button {
+  margin-top: 15px;
+  padding: 15px;
+  border: none;
+  border-radius: 10px;
+  background: #16a34a;
+  color: white;
+  font-weight: bold;
+  cursor: pointer;
+}
+
+.switch-text {
+  text-align: center;
+  margin-top: 20px;
+}
+
+.switch-text a {
+  color: #16a34a;
+  font-weight: bold;
+}
+
+.dashboard {
+  min-height: 100vh;
+  padding: 20px;
+}
+
+.farmer-header {
+  max-width: 900px;
+  margin: auto;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 15px 0;
+}
+
+.farmer-header h1 {
+  font-size: 24px;
+}
+
+.farmer-header p {
+  color: #6b7280;
+  margin-top: 5px;
+}
+
+.profile-icon {
+  font-size: 40px;
+}
+
+.dashboard main {
+  max-width: 900px;
+  margin: 20px auto;
+}
+
+.welcome-card {
+  background: #dcfce7;
+  padding: 24px;
+  border-radius: 18px;
+  margin-bottom: 20px;
+}
+
+.welcome-card h2 {
+  margin-bottom: 8px;
+}
+
+.quick-grid {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: 15px;
+}
+
+.quick-card {
+  background: white;
+  padding: 22px;
+  border-radius: 16px;
+  box-shadow: 0 4px 15px rgba(0, 0, 0, 0.06);
+}
+
+.quick-card span {
+  font-size: 32px;
+}
+
+.quick-card h3 {
+  margin: 10px 0 5px;
+}
+
+.quick-card p {
+  color: #6b7280;
+}
+
+@media (max-width: 600px) {
+  .auth-card {
+    padding: 25px 18px;
+  }
+
+  .quick-grid {
+    grid-template-columns: 1fr;
+  }
+
+  .farmer-header h1 {
+    font-size: 20px;
+  }
+}
