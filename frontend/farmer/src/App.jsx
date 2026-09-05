@@ -4,10 +4,15 @@ import Register from "./pages/Register";
 import Dashboard from "./pages/Dashboard";
 import AddProduce from "./pages/AddProduce";
 import Centres from "./pages/Centres";
+import Recommendation from "./pages/Recommendation";
 function App() {
   return (
     <BrowserRouter>
       <Routes>
+        <Route
+  path="/farmer/recommendation/:centreId"
+  element={<Recommendation />}
+/>
         <Route path="/" element={<Navigate to="/login" replace />} />
         <Route path="/login" element={<Login />} />
         <Route

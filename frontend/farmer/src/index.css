@@ -309,3 +309,82 @@ input {
     grid-template-columns: 1fr;
   }
 }
+.recommendation-card {
+  background: white;
+  padding: 25px;
+  border-radius: 20px;
+  box-shadow: 0 5px 20px rgba(0, 0, 0, 0.07);
+}
+
+.recommendation-badge {
+  display: inline-block;
+  padding: 8px 12px;
+  border-radius: 20px;
+  background: #dcfce7;
+  color: #166534;
+  font-weight: bold;
+  margin-bottom: 18px;
+}
+
+.recommendation-card h2 {
+  font-size: 24px;
+  margin-bottom: 6px;
+}
+
+.recommendation-distance {
+  color: #6b7280;
+}
+
+.recommendation-stats {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 10px;
+  margin: 22px 0;
+}
+
+.recommendation-stats div {
+  background: #f3f4f6;
+  padding: 14px;
+  border-radius: 12px;
+}
+
+.recommendation-stats strong {
+  display: block;
+}
+
+.recommendation-stats span {
+  display: block;
+  color: #6b7280;
+  margin-top: 5px;
+  font-size: 14px;
+}
+
+.recommended-slot {
+  padding: 18px;
+  border-radius: 14px;
+  background: #f0fdf4;
+  margin-bottom: 18px;
+}
+
+.recommended-slot span {
+  display: block;
+  color: #166534;
+}
+
+.recommended-slot strong {
+  display: block;
+  font-size: 20px;
+  margin-top: 8px;
+}
+
+.recommended-slot small {
+  display: block;
+  margin-top: 5px;
+  color: #6b7280;
+}
+
+@media (max-width: 600px) {
+  .recommendation-stats {
+    grid-template-columns: 1fr;
+  }
+}

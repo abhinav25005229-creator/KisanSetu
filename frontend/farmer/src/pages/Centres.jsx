@@ -83,14 +83,14 @@ export default function Centres() {
 
             </div>
 
-            <button
-              className="primary-button"
-              onClick={() =>
-                navigate(`/farmer/centres/${centre.id}`)
-              }
-            >
-              View Centre →
-            </button>
+           <button
+  className="primary-button"
+  onClick={() =>
+    navigate(`/farmer/recommendation/${centre.id}`)
+  }
+>
+  Get AI Recommendation →
+</button>
 
           </div>
         ))}
