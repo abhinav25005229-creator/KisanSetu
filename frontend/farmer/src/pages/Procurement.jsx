@@ -1,13 +1,6 @@
+import { useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
 import { useLanguage } from "../context/LanguageContext";
-
-const procurementData = {
-  token: "WHT1024",
-  centre: "Darbhanga Main Centre",
-  produce: "Wheat",
-  quantity: "500 KG",
-  currentStage: "Quality Check",
-};
 
 const stages = [
   {
@@ -44,54 +37,149 @@ const stages = [
 
 export default function Procurement() {
   const navigate = useNavigate();
-
   const { t } = useLanguage();
 
-  const getStageTitle = (title) => {
-    const translations = {
-      Registration: t.registration,
-      "Slot Booked": t.slotBooked,
-      "Arrived at Centre": t.arrivedAtCentre,
-      "Quality Check": t.qualityCheck,
-      Procurement: t.procurement,
-      Payment: t.payment,
-    };
+  const [booking, setBooking] = useState(null);
+  const [produce, setProduce] = useState(null);
 
-    return translations[title] || title;
-  };
+  useEffect(() => {
+    // Get booking information
+    const savedBooking =
+      localStorage.getItem("farmerBooking");
 
-  const getStageStatus = (status) => {
-    if (status === "completed") {
-      return t.completed;
+    if (savedBooking) {
+      try {
+        setBooking(JSON.parse(savedBooking));
+      } catch (error) {
+        console.error(
+          "Failed to load booking:",
+          error
+        );
+      }
     }
 
-    if (status === "current") {
-      return t.inProgress;
-    }
+    // Get farmer's produce information
+    const savedProduce =
+      localStorage.getItem("farmerProduce");
 
-    return t.pending;
-  };
+    if (savedProduce) {
+      try {
+        setProduce(JSON.parse(savedProduce));
+      } catch (error) {
+        console.error(
+          "Failed to load produce:",
+          error
+        );
+      }
+    }
+  }, []);
+
+  // If booking does not exist
+  if (!booking) {
+    return (
+      <div className="page-container">
+
+        <div className="page-header">
+
+          <button
+            className="back-button"
+            onClick={() =>
+              navigate("/farmer/dashboard")
+            }
+          >
+            ← Back
+          </button>
+
+          <h1>
+            {t.procurementTitle}
+          </h1>
+
+          <p>
+            {t.procurementSubtitle}
+          </p>
+
+        </div>
+
+        <div className="procurement-card">
+
+          <div className="procurement-top">
+
+            <span className="procurement-icon">
+              ⚠️
+            </span>
+
+            <div>
+              <h2>
+                No Active Procurement
+              </h2>
+
+              <p>
+                Please book a procurement slot
+                first.
+              </p>
+            </div>
+
+          </div>
+
+        </div>
+
+        <button
+          className="primary-button"
+          onClick={() =>
+            navigate("/farmer/centres")
+          }
+        >
+          Find Procurement Centre →
+        </button>
+
+      </div>
+    );
+  }
+
+  // Produce information
+  const produceName =
+    produce?.type || "Wheat";
+
+  const quantity =
+    produce?.quantity
+      ? `${produce.quantity} KG`
+      : "500 KG";
+
+  // Temporary token for prototype
+  const token =
+    booking.token ||
+    `KSN${String(
+      booking.slotId
+    ).padStart(2, "0")}24`;
 
   return (
     <div className="page-container">
 
-      {/* Header */}
+      {/* ================= HEADER ================= */}
+
       <div className="page-header">
 
         <button
           className="back-button"
-          onClick={() => navigate("/farmer/dashboard")}
+          onClick={() =>
+            navigate("/farmer/dashboard")
+          }
         >
           ← Back
         </button>
 
-        <h1>{t.procurementTitle}</h1>
+        <h1>
+          {t.procurementTitle}
+        </h1>
 
-        <p>{t.procurementSubtitle}</p>
+        <p>
+          {t.procurementSubtitle}
+        </p>
 
       </div>
 
-      {/* Basic Details */}
+      {/* ================= BASIC DETAILS ================= */}
+
       <div className="procurement-card">
 
         <div className="procurement-top">
@@ -101,32 +189,60 @@ export default function Procurement() {
           </span>
 
           <div>
-            <h2>{procurementData.produce}</h2>
-            <p>{procurementData.quantity}</p>
+
+            <h2>
+              {produceName}
+            </h2>
+
+            <p>
+              {quantity}
+            </p>
+
           </div>
 
         </div>
 
         <div className="procurement-details">
 
-          <div>
-            <span>🎫 {t.token}</span>
-            <strong>{procurementData.token}</strong>
-          </div>
+          {/* Token */}
 
           <div>
-            <span>📍 {t.centre}</span>
-            <strong>{procurementData.centre}</strong>
+
+            <span>
+              🎫 {t.token}
+            </span>
+
+            <strong>
+              {token}
+            </strong>
+
+          </div>
+
+          {/* Centre */}
+
+          <div>
+
+            <span>
+              📍 {t.centre}
+            </span>
+
+            <strong>
+              {booking.centreName}
+            </strong>
+
           </div>
 
         </div>
 
       </div>
 
-      {/* Current Status */}
+      {/* ================= CURRENT STATUS ================= */}
+
       <div className="current-stage-card">
 
-        <p>{t.currentStatus}</p>
+        <p>
+          {t.currentStatus}
+        </p>
 
         <h2>
           🔍 {t.qualityCheck}
@@ -138,74 +254,132 @@ export default function Procurement() {
 
       </div>
 
-      {/* Timeline */}
+      {/* ================= TIMELINE ================= */}
+
       <div className="timeline-card">
 
-        <h2>{t.procurementJourney}</h2>
+        <h2>
+          {t.procurementJourney}
+        </h2>
 
         <div className="timeline">
 
-          {stages.map((stage, index) => (
+          {stages.map(
+            (stage, index) => (
 
-            <div
-              className={`timeline-item ${stage.status}`}
-              key={stage.title}
-            >
+              <div
+                className={`timeline-item ${stage.status}`}
+                key={stage.title}
+              >
 
-              <div className="timeline-marker">
+                {/* Marker */}
 
-                {stage.status === "completed"
-                  ? "✓"
-                  : stage.icon}
+                <div className="timeline-marker">
+
+                  {stage.status ===
+                  "completed"
+                    ? "✓"
+                    : stage.icon}
+
+                </div>
+
+                {/* Content */}
+
+                <div className="timeline-content">
+
+                  <h3>
+                    {getStageTitle(
+                      stage.title,
+                      t
+                    )}
+                  </h3>
+
+                  <p>
+                    {getStageStatus(
+                      stage.status,
+                      t
+                    )}
+                  </p>
+
+                </div>
+
+                {/* Connecting line */}
+
+                {index <
+                  stages.length - 1 && (
+                  <div className="timeline-line"></div>
+                )}
 
               </div>
 
-              <div className="timeline-content">
-
-                <h3>
-                  {getStageTitle(stage.title)}
-                </h3>
-
-                <p>
-                  {getStageStatus(stage.status)}
-                </p>
-
-              </div>
-
-              {index < stages.length - 1 && (
-                <div className="timeline-line"></div>
-              )}
-
-            </div>
-
-          ))}
+            )
+          )}
 
         </div>
 
       </div>
 
-      {/* Help / Notification */}
+      {/* ================= NOTE ================= */}
+
       <div className="procurement-note">
 
         💡 {t.statusUpdateNote}
 
       </div>
 
-      {/* Actions */}
+      {/* ================= PAYMENT ================= */}
+
       <button
         className="primary-button"
-        onClick={() => navigate("/farmer/payment")}
+        onClick={() =>
+          navigate("/farmer/payment")
+        }
       >
         {t.viewPayment} →
       </button>
 
+      {/* ================= DASHBOARD ================= */}
+
       <button
         className="secondary-button"
-        onClick={() => navigate("/farmer/dashboard")}
+        onClick={() =>
+          navigate("/farmer/dashboard")
+        }
       >
         {t.goDashboard}
       </button>
 
     </div>
   );
+}
+
+/*
+ * Translate procurement stage titles
+ */
+function getStageTitle(title, t) {
+  const translations = {
+    Registration: t.registration,
+    "Slot Booked": t.slotBooked,
+    "Arrived at Centre": t.arrivedAtCentre,
+    "Quality Check": t.qualityCheck,
+    Procurement: t.procurement,
+    Payment: t.payment,
+  };
+
+  return translations[title] || title;
+}
+
+/*
+ * Translate stage status
+ */
+function getStageStatus(status, t) {
+  if (status === "completed") {
+    return t.completed;
+  }
+
+  if (status === "current") {
+    return t.inProgress;
+  }
+
+  return t.pending;
 }

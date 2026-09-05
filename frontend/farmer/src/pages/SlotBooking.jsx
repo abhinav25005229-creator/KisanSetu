@@ -2,6 +2,7 @@ import { useState } from "react";
 import { useNavigate, useParams } from "react-router-dom";
 import { useLanguage } from "../context/LanguageContext";
 
+// Available time slots
 const slots = [
   {
     id: 1,
@@ -25,6 +26,32 @@ const slots = [
   },
 ];
 
+const centreData = {
+  1: {
+    name: "Bahadurpur Procurement Centre",
+    distance: "2.4 km",
+    queue: 18,
+    wait: 42,
+    load: "Medium",
+  },
+
+  2: {
+    name: "Darbhanga Main Centre",
+    distance: "4.1 km",
+    queue: 8,
+    wait: 21,
+    load: "Low",
+  },
+
+  3: {
+    name: "Benipur Procurement Centre",
+    distance: "6.2 km",
+    queue: 41,
+    wait: 96,
+    load: "High",
+  },
+};
+
 export default function SlotBooking() {
   const navigate = useNavigate();
   const { centreId } = useParams();
@@ -34,49 +61,87 @@ export default function SlotBooking() {
   const [selectedDate, setSelectedDate] = useState("");
   const [selectedSlot, setSelectedSlot] = useState(null);
 
+  // Get selected centre
+  const selectedCentre =
+    centreData[centreId] || centreData[2];
+
   const handleBooking = () => {
+    // Date validation
     if (!selectedDate) {
       alert(t.selectDateAlert);
       return;
     }
 
+    // Slot validation
     if (!selectedSlot) {
       alert(t.selectTimeAlert);
       return;
     }
 
+    // Create booking object
     const booking = {
-      centreId,
+      bookingId: `KSN${Date.now()}`,
+
+      centreId: Number(centreId),
+
+      centreName: selectedCentre.name,
+
+      centreDistance: selectedCentre.distance,
+
+      centreQueue: selectedCentre.queue,
+
+      estimatedWait: selectedCentre.wait,
+
+      centreLoad: selectedCentre.load,
+
       date: selectedDate,
+
       slotId: selectedSlot.id,
+
       time: selectedSlot.time,
+
+      status: "Confirmed",
+
+      createdAt: new Date().toISOString(),
     };
 
-    // Temporary mock booking.
-    // Later this will call POST /bookings
+    // Save booking
     localStorage.setItem(
       "farmerBooking",
       JSON.stringify(booking)
     );
 
+    // Save selected centre separately
+    localStorage.setItem(
+      "selectedCentre",
+      JSON.stringify(selectedCentre)
+    );
+
+    // Go to digital token
     navigate("/farmer/token");
   };
 
   return (
     <div className="page-container">
 
+      {/* ================= HEADER ================= */}
+
       <div className="page-header">
 
         <button
           className="back-button"
           onClick={() =>
-            navigate(`/farmer/recommendation/${centreId}`)
+            navigate(
+              `/farmer/recommendation/${centreId}`
+            )
           }
         >
           ← Back
         </button>
 
-        <h1>{t.slotBookingTitle} 🎫</h1>
+        <h1>
+          {t.slotBookingTitle} 🎫
+        </h1>
 
         <p>
           {t.slotSubtitle}
@@ -84,22 +149,90 @@ export default function SlotBooking() {
 
       </div>
 
+      {/* ================= SELECTED CENTRE ================= */}
+
       <div className="form-card">
 
-        <label>{t.selectDate}</label>
+        <h2>
+          📍 {selectedCentre.name}
+        </h2>
+
+        <p>
+          {selectedCentre.distance} away
+        </p>
+
+        <div className="centre-info">
+
+          <div>
+            <strong>
+              👥 {selectedCentre.queue}
+            </strong>
+
+            <small>
+              {t.queue}
+            </small>
+          </div>
+
+          <div>
+            <strong>
+              ⏱️ {selectedCentre.wait} min
+            </strong>
+
+            <small>
+              {t.estimatedWait}
+            </small>
+          </div>
+
+          <div>
+            <strong>
+              {selectedCentre.load === "Low"
+                ? "🟢"
+                : selectedCentre.load === "Medium"
+                ? "🟡"
+                : "🔴"}{" "}
+              {selectedCentre.load}
+            </strong>
+
+            <small>
+              {t.centreLoad}
+            </small>
+          </div>
+
+        </div>
+
+      </div>
+
+      {/* ================= DATE ================= */}
+
+      <div className="form-card">
+
+        <label>
+          {t.selectDate}
+        </label>
 
         <input
           type="date"
           value={selectedDate}
-          onChange={(e) => setSelectedDate(e.target.value)}
-          min={new Date().toISOString().split("T")[0]}
+          onChange={(e) => {
+            setSelectedDate(e.target.value);
+            setSelectedSlot(null);
+          }}
+          min={
+            new Date()
+              .toISOString()
+              .split("T")[0]
+          }
         />
 
       </div>
 
+      {/* ================= TIME SLOTS ================= */}
+
       <div className="slot-section">
 
-        <h2>{t.availableTimeSlots}</h2>
+        <h2>
+          {t.availableTimeSlots}
+        </h2>
 
         <div className="slot-grid">
 
@@ -116,9 +249,13 @@ export default function SlotBooking() {
                 key={slot.id}
                 disabled={!isAvailable}
                 className={`slot-card ${
-                  isSelected ? "selected" : ""
+                  isSelected
+                    ? "selected"
+                    : ""
                 }`}
-                onClick={() => setSelectedSlot(slot)}
+                onClick={() =>
+                  setSelectedSlot(slot)
+                }
               >
 
                 <strong>
@@ -126,7 +263,8 @@ export default function SlotBooking() {
                 </strong>
 
                 <span>
-                  {slot.available} {t.slotsAvailable}
+                  {slot.available}{" "}
+                  {t.slotsAvailable}
                 </span>
 
               </button>
@@ -136,6 +274,42 @@ export default function SlotBooking() {
         </div>
 
       </div>
+
+      {/* ================= BOOKING SUMMARY ================= */}
+
+      {selectedDate && selectedSlot && (
+
+        <div className="form-card">
+
+          <h2>
+            📋 Booking Summary
+          </h2>
+
+          <p>
+            <strong>Centre:</strong>{" "}
+            {selectedCentre.name}
+          </p>
+
+          <p>
+            <strong>Date:</strong>{" "}
+            {selectedDate}
+          </p>
+
+          <p>
+            <strong>Time:</strong>{" "}
+            {selectedSlot.time}
+          </p>
+
+          <p>
+            <strong>Estimated Wait:</strong>{" "}
+            {selectedCentre.wait} minutes
+          </p>
+
+        </div>
+
+      )}
+
+      {/* ================= CONFIRM ================= */}
 
       <button
         className="primary-button booking-button"

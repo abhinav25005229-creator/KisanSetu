@@ -1,6 +1,8 @@
+import { useState } from "react";
+
 const congestionData = [
   {
-    name: "Centre A",
+    name: "Bahadurpur Procurement Centre",
     district: "Darbhanga",
     load: 94,
     queue: 137,
@@ -8,7 +10,7 @@ const congestionData = [
     status: "Critical",
   },
   {
-    name: "Centre C",
+    name: "Benipur Procurement Centre",
     district: "Madhubani",
     load: 68,
     queue: 78,
@@ -16,7 +18,7 @@ const congestionData = [
     status: "Moderate",
   },
   {
-    name: "Centre B",
+    name: "Darbhanga Main Centre",
     district: "Darbhanga",
     load: 35,
     queue: 35,
@@ -24,18 +26,22 @@ const congestionData = [
     status: "Normal",
   },
 ];
-import { useState } from "react";
+
 function CongestionPanel() {
-    const [applied, setApplied] = useState(false);
+  const [applied, setApplied] = useState(false);
+
   return (
     <section className="intelligence-grid">
 
-      {/* CONGESTION */}
+      {/* CONGESTION MONITORING */}
       <div className="panel-card">
+
         <div className="panel-header">
           <div>
             <h2>🚦 Congestion Monitoring</h2>
-            <p>Identify overloaded procurement centres</p>
+            <p>
+              Identify overloaded procurement centres in real time
+            </p>
           </div>
 
           <span className="live-badge">
@@ -44,8 +50,12 @@ function CongestionPanel() {
         </div>
 
         <div className="congestion-list">
+
           {congestionData.map((centre) => (
-            <div className="congestion-row" key={centre.name}>
+            <div
+              className="congestion-row"
+              key={centre.name}
+            >
 
               <div className="centre-info">
                 <strong>{centre.name}</strong>
@@ -75,16 +85,19 @@ function CongestionPanel() {
 
             </div>
           ))}
+
         </div>
       </div>
 
-      {/* AI RECOMMENDATION */}
+      {/* AI DECISION SUPPORT */}
       <div className="panel-card ai-card">
 
         <div className="panel-header">
           <div>
-            <h2>🤖 AI Recommendation</h2>
-            <p>Smart load-balancing suggestion</p>
+            <h2>🤖 AI Decision Support</h2>
+            <p>
+              Predictive congestion and recommended action
+            </p>
           </div>
 
           <span className="ai-badge">
@@ -93,17 +106,24 @@ function CongestionPanel() {
         </div>
 
         <div className="ai-alert">
+
           <div className="ai-icon">
             ⚠️
           </div>
 
           <div>
-            <strong>Centre A is overloaded</strong>
+            <strong>
+              Bahadurpur Centre is highly congested
+            </strong>
+
             <p>
               Current load is <b>94%</b> with{" "}
               <b>137 farmers</b> waiting.
+              Estimated waiting time is{" "}
+              <b>150 minutes</b>.
             </p>
           </div>
+
         </div>
 
         <div className="recommendation">
@@ -113,7 +133,7 @@ function CongestionPanel() {
 
             <div>
               <small>Recommended Alternative</small>
-              <strong>Centre B</strong>
+              <strong>Darbhanga Main Centre</strong>
             </div>
           </div>
 
@@ -135,22 +155,36 @@ function CongestionPanel() {
             </div>
           </div>
 
+          <div className="recommendation-item">
+            <span>📢</span>
+
+            <div>
+              <small>Farmer Communication</small>
+              <strong>Send SMS / Voice Alert</strong>
+            </div>
+          </div>
+
         </div>
 
-                <button
-        className="action-button"
-        onClick={() => setApplied(true)}
-        disabled={applied}
+        <button
+          className="action-button"
+          onClick={() => setApplied(true)}
+          disabled={applied}
         >
-        {applied ? "✓ Recommendation Applied" : "Apply Recommendation →"}
+          {applied
+            ? "✓ Recommendation Applied"
+            : "Apply AI Recommendation →"}
         </button>
-                {applied && (
-  <div className="recommendation-success">
-    ✓ Recommendation successfully applied.
-    <br />
-    Centre B capacity increased to reduce queue pressure.
-  </div>
-)}
+
+        {applied && (
+          <div className="recommendation-success">
+            ✓ Recommendation successfully applied.
+            <br />
+            New bookings can be redirected to lower-load centres
+            and affected farmers can be notified.
+          </div>
+        )}
+
       </div>
 
     </section>

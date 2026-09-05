@@ -1,7 +1,7 @@
 const centres = [
   {
     id: 1,
-    name: "Centre A",
+    name: "Bahadurpur Procurement Centre",
     district: "Darbhanga",
     load: 94,
     queue: 137,
@@ -12,7 +12,7 @@ const centres = [
   },
   {
     id: 2,
-    name: "Centre B",
+    name: "Darbhanga Main Centre",
     district: "Darbhanga",
     load: 35,
     queue: 35,
@@ -23,7 +23,7 @@ const centres = [
   },
   {
     id: 3,
-    name: "Centre C",
+    name: "Benipur Procurement Centre",
     district: "Madhubani",
     load: 68,
     queue: 78,
@@ -34,7 +34,7 @@ const centres = [
   },
   {
     id: 4,
-    name: "Centre D",
+    name: "Samastipur Procurement Centre",
     district: "Samastipur",
     load: 81,
     queue: 96,
@@ -46,13 +46,25 @@ const centres = [
 ];
 
 function CentreDetails() {
+  const criticalCount = centres.filter(
+    (centre) => centre.status === "Critical"
+  ).length;
+
+  const moderateCount = centres.filter(
+    (centre) => centre.status === "Moderate"
+  ).length;
+
+  const normalCount = 24 - criticalCount - moderateCount;
+
   return (
     <div className="centre-details">
 
+      {/* SUMMARY */}
       <div className="centre-summary">
 
         <div className="summary-card">
           <span>🏢</span>
+
           <div>
             <small>Total Centres</small>
             <strong>24</strong>
@@ -61,36 +73,41 @@ function CentreDetails() {
 
         <div className="summary-card">
           <span>🔴</span>
+
           <div>
             <small>Critical</small>
-            <strong>1</strong>
+            <strong>{criticalCount}</strong>
           </div>
         </div>
 
         <div className="summary-card">
           <span>🟡</span>
+
           <div>
             <small>Moderate</small>
-            <strong>2</strong>
+            <strong>{moderateCount}</strong>
           </div>
         </div>
 
         <div className="summary-card">
           <span>🟢</span>
+
           <div>
             <small>Normal</small>
-            <strong>21</strong>
+            <strong>{normalCount}</strong>
           </div>
         </div>
 
       </div>
 
+      {/* TABLE */}
       <div className="centre-table-card">
 
         <div className="table-top">
 
           <div>
             <h2>Centre Operations</h2>
+
             <p>
               Current procurement centre performance
             </p>
@@ -105,6 +122,7 @@ function CentreDetails() {
         <div className="centre-table">
 
           <div className="centre-table-row table-head">
+
             <span>Centre</span>
             <span>Load</span>
             <span>Queue</span>
@@ -112,6 +130,7 @@ function CentreDetails() {
             <span>Counters</span>
             <span>Processed</span>
             <span>Status</span>
+
           </div>
 
           {centres.map((centre) => (
@@ -122,14 +141,25 @@ function CentreDetails() {
             >
 
               <div className="centre-name">
-                <strong>{centre.name}</strong>
-                <small>{centre.district}</small>
+
+                <strong>
+                  {centre.name}
+                </strong>
+
+                <small>
+                  {centre.district}
+                </small>
+
               </div>
 
               <div>
-                <strong>{centre.load}%</strong>
+
+                <strong>
+                  {centre.load}%
+                </strong>
 
                 <div className="mini-progress">
+
                   <div
                     className={`mini-progress-fill ${
                       centre.load >= 85
@@ -141,20 +171,32 @@ function CentreDetails() {
                     style={{
                       width: `${centre.load}%`,
                     }}
-                  ></div>
+                  />
+
                 </div>
+
               </div>
 
-              <span>{centre.queue}</span>
+              <span>
+                {centre.queue}
+              </span>
 
-              <span>{centre.waiting} min</span>
+              <span>
+                {centre.waiting} min
+              </span>
 
-              <span>{centre.counters}</span>
+              <span>
+                {centre.counters}
+              </span>
 
-              <span>{centre.processed}</span>
+              <span>
+                {centre.processed}
+              </span>
 
               <span
-                className={`centre-status ${centre.status.toLowerCase()}`}
+                className={`centre-status ${
+                  centre.status.toLowerCase()
+                }`}
               >
                 {centre.status}
               </span>

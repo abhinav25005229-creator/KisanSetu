@@ -1,158 +1,302 @@
-
 import { useState } from "react";
 import "./index.css";
 import PageContent from "./components/PageContent";
 import Login from "./pages/Login";
 
-
-
 function App() {
+  const [activePage, setActivePage] = useState("dashboard");
+  const [isLoggedIn, setIsLoggedIn] = useState(false);
 
+  // Government filters
+  const [district, setDistrict] = useState("All Districts");
 
-    const [activePage, setActivePage] = useState("dashboard");
-    const [isLoggedIn, setIsLoggedIn] = useState(false);
-const [district, setDistrict] = useState("All Districts");
-const [selectedDate, setSelectedDate] = useState("2026-09-04");
+  // Demo date
+  const [selectedDate, setSelectedDate] = useState("2026-09-08");
 
-if (!isLoggedIn) {
-  return <Login onLogin={() => setIsLoggedIn(true)} />;
-}
+  // ================================
+  // LOGIN
+  // ================================
 
-return (
-  <div className="app">
+  if (!isLoggedIn) {
+    return (
+      <Login
+        onLogin={() => {
+          setIsLoggedIn(true);
+          setActivePage("dashboard");
+        }}
+      />
+    );
+  }
 
-      {/* SIDEBAR */}
+  // ================================
+  // NAVIGATION
+  // ================================
+
+  const handleNavigation = (page) => {
+    setActivePage(page);
+  };
+
+  // ================================
+  // LOGOUT
+  // ================================
+
+  const handleLogout = () => {
+    setIsLoggedIn(false);
+    setActivePage("dashboard");
+    setDistrict("All Districts");
+    setSelectedDate("2026-09-08");
+  };
+
+  return (
+    <div className="app">
+
+      {/* =================================
+          SIDEBAR
+          ================================= */}
+
       <aside className="sidebar">
+
+        {/* Logo */}
+
         <div className="logo">
           🌾 <span>KisanSetu</span>
         </div>
 
-        <div className="admin-title">Government Admin</div>
+        <div className="admin-title">
+          Government Admin
+        </div>
 
-       <nav>
-  <button
-    className={`nav-item ${
-      activePage === "dashboard" ? "active" : ""
-    }`}
-    onClick={() => setActivePage("dashboard")}
-  >
-    📊 Dashboard
-  </button>
+        {/* =================================
+            NAVIGATION
+            ================================= */}
 
-  <button
-    className={`nav-item ${
-      activePage === "centres" ? "active" : ""
-    }`}
-    onClick={() => setActivePage("centres")}
-  >
-    📍 Procurement Centres
-  </button>
+        <nav>
 
-  <button
-    className={`nav-item ${
-      activePage === "congestion" ? "active" : ""
-    }`}
-    onClick={() => setActivePage("congestion")}
-  >
-    🚦 Congestion
-  </button>
+          {/* Dashboard */}
 
-  <button
-    className={`nav-item ${
-      activePage === "forecast" ? "active" : ""
-    }`}
-    onClick={() => setActivePage("forecast")}
-  >
-    📈 Forecast
-  </button>
+          <button
+            className={`nav-item ${
+              activePage === "dashboard" ? "active" : ""
+            }`}
+            onClick={() => handleNavigation("dashboard")}
+          >
+            📊 Dashboard
+          </button>
 
-  <button
-    className={`nav-item ${
-      activePage === "ai" ? "active" : ""
-    }`}
-    onClick={() => setActivePage("ai")}
-  >
-    🤖 AI Recommendations
-  </button>
+          {/* Procurement Centres */}
 
-  <button
-    className={`nav-item ${
-      activePage === "procurement" ? "active" : ""
-    }`}
-    onClick={() => setActivePage("procurement")}
-  >
-    🌾 Procurement Analytics
-  </button>
+          <button
+            className={`nav-item ${
+              activePage === "centres" ? "active" : ""
+            }`}
+            onClick={() => handleNavigation("centres")}
+          >
+            📍 Procurement Centres
+          </button>
 
-  <button
-    className={`nav-item ${
-      activePage === "payments" ? "active" : ""
-    }`}
-    onClick={() => setActivePage("payments")}
-  >
-    💰 Payment Analytics
-  </button>
-</nav>
+          {/* Congestion */}
+
+          <button
+            className={`nav-item ${
+              activePage === "congestion" ? "active" : ""
+            }`}
+            onClick={() => handleNavigation("congestion")}
+          >
+            🚦 Congestion
+          </button>
+
+          {/* Forecast */}
+
+          <button
+            className={`nav-item ${
+              activePage === "forecast" ? "active" : ""
+            }`}
+            onClick={() => handleNavigation("forecast")}
+          >
+            📈 Forecast
+          </button>
+
+          {/* AI Recommendations */}
+
+          <button
+            className={`nav-item ${
+              activePage === "ai" ? "active" : ""
+            }`}
+            onClick={() => handleNavigation("ai")}
+          >
+            🤖 AI Recommendations
+          </button>
+
+          {/* Procurement Analytics */}
+
+          <button
+            className={`nav-item ${
+              activePage === "procurement" ? "active" : ""
+            }`}
+            onClick={() => handleNavigation("procurement")}
+          >
+            🌾 Procurement Analytics
+          </button>
+
+          {/* Payment Analytics */}
+
+          <button
+            className={`nav-item ${
+              activePage === "payments" ? "active" : ""
+            }`}
+            onClick={() => handleNavigation("payments")}
+          >
+            💰 Payment Analytics
+          </button>
+
+        </nav>
+
+        {/* =================================
+            SIDEBAR BOTTOM
+            ================================= */}
 
         <div className="sidebar-bottom">
-          <button className="nav-item">⚙️ Settings</button>
-         <button
-  className="nav-item logout"
-  onClick={() => setIsLoggedIn(false)}
->
-  🚪 Logout
-</button>
+
+          {/* Settings */}
+
+          <button
+            className="nav-item"
+            onClick={() =>
+              alert(
+                "Settings module will be available in the next version."
+              )
+            }
+          >
+            ⚙️ Settings
+          </button>
+
+          {/* Logout */}
+
+          <button
+            className="nav-item logout"
+            onClick={handleLogout}
+          >
+            🚪 Logout
+          </button>
+
         </div>
+
       </aside>
 
-      {/* MAIN */}
+      {/* =================================
+          MAIN CONTENT
+          ================================= */}
+
       <main className="main-content">
 
-        {/* HEADER */}
+        {/* =================================
+            HEADER
+            ================================= */}
+
         <header className="header">
+
+          {/* Header Left */}
+
           <div>
-            <h1>Government Dashboard</h1>
-            <p>Monitor agricultural procurement across centres</p>
+
+            <h1>
+              Government Dashboard
+            </h1>
+
+            <p>
+              Monitor agricultural procurement
+              across centres
+            </p>
+
+            {/* =================================
+                FILTERS
+                ================================= */}
+
             <div className="header-filters">
 
-  <select
-    value={district}
-    onChange={(e) => setDistrict(e.target.value)}
-  >
-    <option>All Districts</option>
-    <option>GHAZIABAD</option>
-    <option>HAPUR</option>
-    <option>BULANDSHAHR</option>
-    <option>Muzaffarnagar</option>
-  </select>
+              {/* District */}
 
-  <input
-    type="date"
-    value={selectedDate}
-    onChange={(e) => setSelectedDate(e.target.value)}
-  />
+              <select
+                value={district}
+                onChange={(e) =>
+                  setDistrict(e.target.value)
+                }
+              >
+                <option value="All Districts">
+                  All Districts
+                </option>
 
-</div>
+                <option value="Darbhanga">
+                  Darbhanga
+                </option>
+
+                <option value="Bahadurpur">
+                  Bahadurpur
+                </option>
+
+                <option value="Benipur">
+                  Benipur
+                </option>
+              </select>
+
+              {/* Date */}
+
+              <input
+                type="date"
+                value={selectedDate}
+                onChange={(e) =>
+                  setSelectedDate(e.target.value)
+                }
+              />
+
+            </div>
+
           </div>
 
+          {/* =================================
+              ADMIN PROFILE
+              ================================= */}
+
           <div className="admin-profile">
-            <div className="notification">🔔</div>
+
+            <div className="notification">
+              🔔
+            </div>
 
             <div className="avatar">
               A
             </div>
 
             <div>
-              <strong>Admin</strong>
-              <small>Government Authority</small>
+
+              <strong>
+                Admin
+              </strong>
+
+              <small>
+                Government Authority
+              </small>
+
             </div>
+
           </div>
+
         </header>
 
-       {/* DASHBOARD */}
-<section className="dashboard">
-  <PageContent activePage={activePage} />
-</section>
+        {/* =================================
+            DASHBOARD CONTENT
+            ================================= */}
+
+        <section className="dashboard">
+
+          <PageContent
+            activePage={activePage}
+            district={district}
+            selectedDate={selectedDate}
+          />
+
+        </section>
+
       </main>
 
     </div>

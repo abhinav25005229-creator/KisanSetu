@@ -10,7 +10,7 @@ import "leaflet/dist/leaflet.css";
 const centres = [
   {
     id: 1,
-    name: "Centre A",
+    name: "Bahadurpur Procurement Centre",
     district: "Darbhanga",
     queue: 137,
     load: 94,
@@ -22,7 +22,7 @@ const centres = [
   },
   {
     id: 2,
-    name: "Centre B",
+    name: "Darbhanga Main Centre",
     district: "Darbhanga",
     queue: 35,
     load: 35,
@@ -34,7 +34,7 @@ const centres = [
   },
   {
     id: 3,
-    name: "Centre C",
+    name: "Benipur Procurement Centre",
     district: "Madhubani",
     queue: 78,
     load: 68,
@@ -63,7 +63,7 @@ function CentreMap() {
     <div className="map-card">
       <div className="map-header">
         <div>
-          <h2>Procurement Centre Network</h2>
+          <h2>🗺️ Procurement Centre Network</h2>
           <p>Live centre load and queue monitoring</p>
         </div>
 
@@ -92,58 +92,64 @@ function CentreMap() {
         className="map"
       >
         <TileLayer
-          attribution='&copy; OpenStreetMap contributors'
+          attribution="&copy; OpenStreetMap contributors"
           url="https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png"
         />
 
-        {centres.map((centre) => (
-          <CircleMarker
-            key={centre.id}
-            center={[centre.lat, centre.lng]}
-            radius={12}
-            pathOptions={{
-              color: getColor(centre.load),
-              fillColor: getColor(centre.load),
-              fillOpacity: 0.75,
-            }}
-          >
-            <Popup>
-              <div className="popup">
-                <h3>{centre.name}</h3>
+        {centres.map((centre) => {
+          const status = getStatus(centre.load);
+          const color = getColor(centre.load);
 
-                <p>
-                  <strong>District:</strong> {centre.district}
-                </p>
+          return (
+            <CircleMarker
+              key={centre.id}
+              center={[centre.lat, centre.lng]}
+              radius={12}
+              pathOptions={{
+                color,
+                fillColor: color,
+                fillOpacity: 0.75,
+              }}
+            >
+              <Popup>
+                <div className="popup">
+                  <h3>{centre.name}</h3>
 
-                <p>
-                  <strong>Queue:</strong> {centre.queue} farmers
-                </p>
+                  <p>
+                    <strong>District:</strong> {centre.district}
+                  </p>
 
-                <p>
-                  <strong>Load:</strong> {centre.load}%
-                </p>
+                  <p>
+                    <strong>Queue:</strong> {centre.queue} farmers
+                  </p>
 
-                <p>
-                  <strong>Waiting:</strong> {centre.waitingTime} min
-                </p>
+                  <p>
+                    <strong>Centre Load:</strong> {centre.load}%
+                  </p>
 
-                <p>
-                  <strong>Active Counters:</strong>{" "}
-                  {centre.activeCounters}
-                </p>
+                  <p>
+                    <strong>Estimated Waiting:</strong>{" "}
+                    {centre.waitingTime} min
+                  </p>
 
-                <p>
-                  <strong>Processed Today:</strong>{" "}
-                  {centre.processedToday}
-                </p>
+                  <p>
+                    <strong>Active Counters:</strong>{" "}
+                    {centre.activeCounters}
+                  </p>
 
-                <span className={`status ${getStatus(centre.load)}`}>
-                  {getStatus(centre.load).toUpperCase()}
-                </span>
-              </div>
-            </Popup>
-          </CircleMarker>
-        ))}
+                  <p>
+                    <strong>Processed Today:</strong>{" "}
+                    {centre.processedToday}
+                  </p>
+
+                  <span className={`status ${status}`}>
+                    {status.toUpperCase()}
+                  </span>
+                </div>
+              </Popup>
+            </CircleMarker>
+          );
+        })}
       </MapContainer>
     </div>
   );

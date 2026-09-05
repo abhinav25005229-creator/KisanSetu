@@ -26,17 +26,22 @@ function ForecastChart() {
     <section className="forecast-card">
 
       <div className="forecast-header">
+
         <div>
           <h2>📈 Farmer Arrival Forecast</h2>
-          <p>Actual vs predicted farmer arrivals</p>
+          <p>
+            Actual vs AI-predicted farmer arrivals
+          </p>
         </div>
 
         <span className="forecast-badge">
           AI FORECAST
         </span>
+
       </div>
 
       <div className="chart-legend">
+
         <span>
           <i className="actual-dot"></i>
           Actual
@@ -46,11 +51,18 @@ function ForecastChart() {
           <i className="predicted-dot"></i>
           Predicted
         </span>
+
       </div>
 
       <div className="chart-container">
-        <ResponsiveContainer width="100%" height="100%">
+
+        <ResponsiveContainer
+          width="100%"
+          height="100%"
+        >
+
           <LineChart data={forecastData}>
+
             <CartesianGrid strokeDasharray="3 3" />
 
             <XAxis dataKey="time" />
@@ -65,7 +77,7 @@ function ForecastChart() {
               stroke="#2f8f4e"
               strokeWidth={3}
               dot={{ r: 4 }}
-              name="Actual"
+              name="Actual Arrivals"
             />
 
             <Line
@@ -75,21 +87,31 @@ function ForecastChart() {
               strokeWidth={3}
               strokeDasharray="6 6"
               dot={{ r: 3 }}
-              name="Predicted"
+              name="AI Prediction"
             />
+
           </LineChart>
+
         </ResponsiveContainer>
+
       </div>
 
       <div className="forecast-insight">
+
         <span>💡</span>
+
         <div>
-          <strong>Peak arrival expected around 12 PM</strong>
+          <strong>
+            Peak arrival expected around 12 PM
+          </strong>
+
           <p>
-            Consider increasing active counters during peak hours
-            to reduce waiting time.
+            AI predicts increased farmer arrivals during
+            the peak window. Authorities can increase
+            active counters before congestion occurs.
           </p>
         </div>
+
       </div>
 
     </section>
