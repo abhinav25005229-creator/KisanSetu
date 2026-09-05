@@ -149,6 +149,17 @@ function App() {
             💰 Payment Analytics
           </button>
 
+          {/* Voice Access */}
+
+          <button
+            className={`nav-item ${
+              activePage === "voice" ? "active" : ""
+            }`}
+            onClick={() => handleNavigation("voice")}
+          >
+            📞 Voice Access
+          </button>
+
         </nav>
 
         {/* =================================

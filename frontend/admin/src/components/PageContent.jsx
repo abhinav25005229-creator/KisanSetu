@@ -12,14 +12,9 @@ function PageContent({
   district = "All Districts",
   selectedDate = "",
 }) {
-  const [dashboardData, setDashboardData] =
-    useState(null);
-
-  const [loading, setLoading] =
-    useState(true);
-
-  const [error, setError] =
-    useState("");
+  const [dashboardData, setDashboardData] = useState(null);
+  const [loading, setLoading] = useState(true);
+  const [error, setError] = useState("");
 
   // ==========================================
   // DEMO DATA
@@ -45,11 +40,8 @@ function PageContent({
       try {
         setLoading(true);
 
-        const response =
-          await api.get("/admin/dashboard");
-        if (activePage === "voice") {
-  return <VoiceAccess />;
-}
+        const response = await api.get("/admin/dashboard");
+
         if (response?.data) {
           setDashboardData(response.data);
           setError("");
@@ -60,10 +52,7 @@ function PageContent({
           );
         }
       } catch (err) {
-        console.error(
-          "Dashboard API Error:",
-          err
-        );
+        console.error("Dashboard API Error:", err);
 
         setDashboardData(null);
 
@@ -79,13 +68,20 @@ function PageContent({
   }, []);
 
   // ==========================================
+  // VOICE ACCESS
+  // ==========================================
+
+  if (activePage === "voice") {
+    return <VoiceAccess />;
+  }
+
+  // ==========================================
   // LOADING STATE
   // ==========================================
 
   if (loading) {
     return (
       <div className="state-message">
-
         <div style={{ fontSize: "40px" }}>
           ⏳
         </div>
@@ -97,7 +93,6 @@ function PageContent({
         <p>
           Fetching procurement data from server.
         </p>
-
       </div>
     );
   }
@@ -115,9 +110,7 @@ function PageContent({
   if (activePage === "centres") {
     return (
       <div className="page-view">
-
         <div className="page-title">
-
           <h2>
             📍 Procurement Centres
           </h2>
@@ -126,11 +119,9 @@ function PageContent({
             Monitor all procurement centres
             and their current status.
           </p>
-
         </div>
 
         <CentreDetails />
-
       </div>
     );
   }
@@ -142,9 +133,7 @@ function PageContent({
   if (activePage === "congestion") {
     return (
       <div className="page-view">
-
         <div className="page-title">
-
           <h2>
             🚦 Congestion Monitoring
           </h2>
@@ -153,11 +142,9 @@ function PageContent({
             Identify overloaded centres
             and queue pressure.
           </p>
-
         </div>
 
         <CongestionPanel />
-
       </div>
     );
   }
@@ -169,9 +156,7 @@ function PageContent({
   if (activePage === "forecast") {
     return (
       <div className="page-view">
-
         <div className="page-title">
-
           <h2>
             📈 Demand Forecast
           </h2>
@@ -180,11 +165,9 @@ function PageContent({
             AI-powered farmer arrival
             prediction.
           </p>
-
         </div>
 
         <ForecastChart />
-
       </div>
     );
   }
@@ -196,9 +179,7 @@ function PageContent({
   if (activePage === "ai") {
     return (
       <div className="page-view">
-
         <div className="page-title">
-
           <h2>
             🤖 AI Recommendations
           </h2>
@@ -207,15 +188,12 @@ function PageContent({
             Smart recommendations for
             reducing centre congestion.
           </p>
-
         </div>
 
         {/* AI Decision Support */}
 
         <div className="ai-recommendation-card">
-
           <div className="ai-card-header">
-
             <div>
               <h2>
                 🤖 AI Decision Support
@@ -230,17 +208,14 @@ function PageContent({
             <span className="demo-badge">
               PROTOTYPE
             </span>
-
           </div>
 
           <div className="ai-alert high">
-
             <div className="ai-alert-icon">
               ⚠️
             </div>
 
             <div>
-
               <h3>
                 High Congestion Risk
               </h3>
@@ -255,19 +230,15 @@ function PageContent({
                 Current queue: 41 farmers
                 · Estimated wait: 96 min
               </strong>
-
             </div>
-
           </div>
 
           <div className="ai-action-box">
-
             <h3>
               Recommended Actions
             </h3>
 
             <ul>
-
               <li>
                 ➜ Activate an additional
                 procurement counter.
@@ -282,13 +253,9 @@ function PageContent({
                 ➜ Notify affected farmers
                 about expected waiting time.
               </li>
-
             </ul>
-
           </div>
-
         </div>
-
       </div>
     );
   }
@@ -300,9 +267,7 @@ function PageContent({
   if (activePage === "procurement") {
     return (
       <div className="page-view">
-
         <div className="page-title">
-
           <h2>
             🌾 Procurement Analytics
           </h2>
@@ -311,11 +276,9 @@ function PageContent({
             Track procurement activity
             across centres.
           </p>
-
         </div>
 
         <AnalyticsPanel />
-
       </div>
     );
   }
@@ -327,9 +290,7 @@ function PageContent({
   if (activePage === "payments") {
     return (
       <div className="page-view">
-
         <div className="page-title">
-
           <h2>
             💰 Payment Analytics
           </h2>
@@ -338,11 +299,9 @@ function PageContent({
             Monitor procurement payment
             status.
           </p>
-
         </div>
 
         <AnalyticsPanel />
-
       </div>
     );
   }
@@ -353,16 +312,13 @@ function PageContent({
 
   return (
     <>
-
       {/* =====================================
           API STATUS
           ===================================== */}
 
       {error && (
         <div className="api-warning">
-
           ⚠️ {error}
-
         </div>
       )}
 
@@ -371,9 +327,7 @@ function PageContent({
           ===================================== */}
 
       <div className="welcome">
-
         <div>
-
           <h2>
             Welcome back, Admin 👋
           </h2>
@@ -385,7 +339,6 @@ function PageContent({
 
           {(district !== "All Districts" ||
             selectedDate) && (
-
             <small>
               Showing data for{" "}
               <strong>
@@ -399,19 +352,14 @@ function PageContent({
                 </>
               )}
             </small>
-
           )}
-
         </div>
 
         <span className="demo-badge">
-
           {dashboardData
             ? "LIVE DATA"
             : "DEMO DATA"}
-
         </span>
-
       </div>
 
       {/* =====================================
@@ -423,7 +371,6 @@ function PageContent({
         {/* TOTAL CENTRES */}
 
         <div className="kpi-card">
-
           <span>
             🏢
           </span>
@@ -439,13 +386,11 @@ function PageContent({
           <small>
             Across districts
           </small>
-
         </div>
 
         {/* ACTIVE CENTRES */}
 
         <div className="kpi-card">
-
           <span>
             🟢
           </span>
@@ -466,13 +411,11 @@ function PageContent({
             )}
             % operational
           </small>
-
         </div>
 
         {/* FARMERS TODAY */}
 
         <div className="kpi-card">
-
           <span>
             👨‍🌾
           </span>
@@ -488,13 +431,11 @@ function PageContent({
           <small>
             +12% from yesterday
           </small>
-
         </div>
 
         {/* FARMERS PROCESSED */}
 
         <div className="kpi-card">
-
           <span>
             ✅
           </span>
@@ -515,13 +456,11 @@ function PageContent({
             )}
             % completed
           </small>
-
         </div>
 
         {/* FARMERS WAITING */}
 
         <div className="kpi-card">
-
           <span>
             ⏳
           </span>
@@ -537,13 +476,11 @@ function PageContent({
           <small>
             Need attention
           </small>
-
         </div>
 
         {/* AVG WAITING TIME */}
 
         <div className="kpi-card">
-
           <span>
             🕐
           </span>
@@ -559,13 +496,11 @@ function PageContent({
           <small>
             Current estimate
           </small>
-
         </div>
 
         {/* AVG PROCESSING */}
 
         <div className="kpi-card">
-
           <span>
             ⚙️
           </span>
@@ -581,13 +516,11 @@ function PageContent({
           <small>
             Per farmer
           </small>
-
         </div>
 
         {/* UTILIZATION */}
 
         <div className="kpi-card">
-
           <span>
             📊
           </span>
@@ -603,7 +536,6 @@ function PageContent({
           <small>
             Centre capacity
           </small>
-
         </div>
 
       </div>
@@ -613,9 +545,7 @@ function PageContent({
           ===================================== */}
 
       <div className="map-section">
-
         <CentreMap />
-
       </div>
 
       {/* =====================================
@@ -635,7 +565,6 @@ function PageContent({
           ===================================== */}
 
       <AnalyticsPanel />
-
     </>
   );
 }
