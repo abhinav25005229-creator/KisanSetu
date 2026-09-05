@@ -570,3 +570,312 @@ input {
     grid-template-columns: 1fr;
   }
 }
+/* =========================
+   LIVE QUEUE
+========================= */
+
+.queue-page {
+  min-height: 100vh;
+  background: #f5f7f6;
+  padding: 28px 20px;
+  max-width: 850px;
+  margin: auto;
+}
+
+.queue-header {
+  display: flex;
+  align-items: center;
+  gap: 16px;
+  margin-bottom: 25px;
+}
+
+.back-button {
+  border: none;
+  background: white;
+  padding: 10px 16px;
+  border-radius: 10px;
+  cursor: pointer;
+  font-size: 15px;
+}
+
+.queue-header h1 {
+  margin: 0;
+  font-size: 30px;
+  color: #172b4d;
+}
+
+.queue-header p {
+  margin: 5px 0 0;
+  color: #667085;
+}
+
+.queue-centre-card {
+  background: white;
+  border-radius: 18px;
+  padding: 22px;
+  display: flex;
+  align-items: center;
+  gap: 15px;
+  box-shadow: 0 5px 20px rgba(0, 0, 0, 0.06);
+  margin-bottom: 18px;
+}
+
+.queue-icon {
+  font-size: 38px;
+}
+
+.queue-centre-card h2 {
+  margin: 0;
+  color: #172b4d;
+}
+
+.queue-centre-card p {
+  margin: 5px 0 0;
+  color: #667085;
+}
+
+/* Your token */
+
+.your-token-card {
+  background: #fff;
+  border-radius: 18px;
+  text-align: center;
+  padding: 25px;
+  margin-bottom: 18px;
+  box-shadow: 0 5px 20px rgba(0, 0, 0, 0.06);
+}
+
+.your-token-card p {
+  color: #667085;
+  margin: 0;
+}
+
+.your-token-card h2 {
+  font-size: 42px;
+  margin: 8px 0 0;
+  color: #172b4d;
+  letter-spacing: 2px;
+}
+
+/* Current serving */
+
+.current-serving {
+  background: white;
+  padding: 22px;
+  border-radius: 18px;
+  margin-bottom: 18px;
+  text-align: center;
+}
+
+.current-serving p {
+  color: #667085;
+  margin-top: 0;
+}
+
+.serving-token {
+  display: inline-flex;
+  align-items: center;
+  gap: 12px;
+  background: #eef8f1;
+  padding: 12px 24px;
+  border-radius: 12px;
+}
+
+.serving-token span {
+  font-size: 22px;
+}
+
+.serving-token strong {
+  font-size: 25px;
+}
+
+/* Stats */
+
+.queue-stats {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 16px;
+  margin-bottom: 18px;
+}
+
+.queue-stat {
+  background: white;
+  border-radius: 18px;
+  padding: 22px;
+  text-align: center;
+  box-shadow: 0 5px 20px rgba(0, 0, 0, 0.05);
+}
+
+.stat-icon {
+  display: block;
+  font-size: 25px;
+  margin-bottom: 8px;
+}
+
+.queue-stat strong {
+  display: block;
+  font-size: 28px;
+  color: #172b4d;
+}
+
+.queue-stat p {
+  margin: 5px 0 0;
+  color: #667085;
+}
+
+/* Status */
+
+.queue-status-card {
+  background: white;
+  padding: 22px;
+  border-radius: 18px;
+  margin-bottom: 18px;
+}
+
+.status-top {
+  display: flex;
+  align-items: center;
+  gap: 14px;
+}
+
+.status-dot {
+  width: 14px;
+  height: 14px;
+  background: #16a34a;
+  border-radius: 50%;
+  display: block;
+}
+
+.status-top h3 {
+  margin: 0;
+  color: #15803d;
+}
+
+.status-top p {
+  margin: 4px 0 0;
+  color: #667085;
+}
+
+.last-updated {
+  margin-top: 15px;
+  font-size: 13px;
+  color: #98a2b3;
+}
+
+/* Progress */
+
+.queue-progress-card {
+  background: white;
+  padding: 22px;
+  border-radius: 18px;
+  margin-bottom: 18px;
+}
+
+.progress-header {
+  display: flex;
+  justify-content: space-between;
+  margin-bottom: 12px;
+  color: #475467;
+}
+
+.progress-header strong {
+  color: #172b4d;
+}
+
+.progress-bar {
+  height: 12px;
+  background: #e4e7ec;
+  border-radius: 20px;
+  overflow: hidden;
+}
+
+.progress-fill {
+  height: 100%;
+  background: #16a34a;
+  border-radius: 20px;
+  transition: width 0.4s ease;
+}
+
+.queue-progress-card p {
+  color: #667085;
+  line-height: 1.5;
+}
+
+/* Notification */
+
+.queue-notification {
+  background: #ecfdf3;
+  border-radius: 16px;
+  padding: 18px;
+  display: flex;
+  gap: 12px;
+  align-items: flex-start;
+  margin-bottom: 18px;
+}
+
+.queue-notification span {
+  font-size: 22px;
+}
+
+.queue-notification p {
+  margin: 0;
+  color: #027a48;
+  line-height: 1.5;
+}
+
+/* Buttons */
+
+.refresh-button {
+  width: 100%;
+  border: none;
+  background: #16a34a;
+  color: white;
+  padding: 15px;
+  border-radius: 12px;
+  font-size: 16px;
+  font-weight: 600;
+  cursor: pointer;
+  margin-bottom: 12px;
+}
+
+.refresh-button:hover {
+  background: #15803d;
+}
+
+.dashboard-button {
+  width: 100%;
+  background: white;
+  border: 1px solid #16a34a;
+  color: #15803d;
+  padding: 15px;
+  border-radius: 12px;
+  font-size: 16px;
+  font-weight: 600;
+  cursor: pointer;
+}
+
+/* Mobile */
+
+@media (max-width: 600px) {
+
+  .queue-page {
+    padding: 20px 14px;
+  }
+
+  .queue-header h1 {
+    font-size: 25px;
+  }
+
+  .queue-centre-card h2 {
+    font-size: 18px;
+  }
+
+  .your-token-card h2 {
+    font-size: 36px;
+  }
+
+  .queue-stats {
+    grid-template-columns: 1fr;
+  }
+
+}

@@ -1,16 +1,31 @@
 import { useNavigate } from "react-router-dom";
+import { useLanguage } from "../context/LanguageContext";
 
 export default function Dashboard() {
   const navigate = useNavigate();
 
+  const { language, toggleLanguage, t } = useLanguage();
+
   return (
     <div className="dashboard">
 
+      {/* Language Button */}
+      <button
+        className="language-button"
+        onClick={toggleLanguage}
+      >
+        🌐 {t.language}
+      </button>
+
+      {/* Header */}
       <header className="farmer-header">
 
         <div>
           <h1>Namaste, Farmer 👋</h1>
-          <p>KisanSetu mein aapka swagat hai</p>
+
+          <p>
+            {t.welcome}
+          </p>
         </div>
 
         <div className="profile-icon">
@@ -19,65 +34,117 @@ export default function Dashboard() {
 
       </header>
 
+
       <main>
 
+        {/* Welcome Card */}
         <section className="welcome-card">
-          <h2>Good Morning 🌾</h2>
+
+          <h2>
+            {t.goodMorning} 🌾
+          </h2>
 
           <p>
-            Check your procurement status and queue.
+            {t.checkStatus}
           </p>
+
         </section>
 
+
+        {/* Quick Cards */}
         <section className="quick-grid">
 
           {/* MY PRODUCE */}
           <div
             className="quick-card"
-            onClick={() => navigate("/farmer/add-produce")}
+            onClick={() =>
+              navigate("/farmer/add-produce")
+            }
           >
             <span>🌾</span>
 
-            <h3>My Produce</h3>
+            <h3>
+              {t.myProduce}
+            </h3>
 
             <p>
-              Add your produce
+              {t.addProduce}
             </p>
           </div>
 
 
           {/* CENTRES */}
-          <div className="quick-card">
+          <div
+            className="quick-card"
+            onClick={() =>
+              navigate("/farmer/centres")
+            }
+          >
             <span>📍</span>
 
-            <h3>Centres</h3>
+            <h3>
+              {t.centres}
+            </h3>
 
             <p>
-              Find nearby centres
+              {t.findCentres}
             </p>
           </div>
 
 
           {/* TOKEN */}
-          <div className="quick-card">
+          <div
+            className="quick-card"
+            onClick={() =>
+              navigate("/farmer/token")
+            }
+          >
             <span>🎫</span>
 
-            <h3>My Token</h3>
+            <h3>
+              {t.myToken}
+            </h3>
 
             <p>
-              No active token
+              {t.noActiveToken}
             </p>
           </div>
 
 
           {/* PAYMENT */}
-          <div className="quick-card">
+          <div
+            className="quick-card"
+            onClick={() =>
+              navigate("/farmer/payment")
+            }
+          >
             <span>💰</span>
 
-            <h3>Payment</h3>
+            <h3>
+              {t.payment}
+            </h3>
 
             <p>
-              Check payment
+              {t.checkPayment}
+            </p>
+          </div>
+
+
+          {/* NOTIFICATIONS */}
+          <div
+            className="quick-card"
+            onClick={() =>
+              navigate("/farmer/notifications")
+            }
+          >
+            <span>🔔</span>
+
+            <h3>
+              {t.notifications}
+            </h3>
+
+            <p>
+              Check latest updates
             </p>
           </div>
 

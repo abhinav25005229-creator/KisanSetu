@@ -1,4 +1,5 @@
 import { useNavigate } from "react-router-dom";
+import { useLanguage } from "../context/LanguageContext";
 
 const centres = [
   {
@@ -30,9 +31,12 @@ const centres = [
 export default function Centres() {
   const navigate = useNavigate();
 
+  const { t } = useLanguage();
+
   return (
     <div className="page-container">
 
+      {/* Header */}
       <div className="page-header">
 
         <button
@@ -42,57 +46,93 @@ export default function Centres() {
           ← Back
         </button>
 
-        <h1>Nearby Centres 📍</h1>
+        <h1>{t.centreTitle} 📍</h1>
 
-        <p>
-          Apne liye suitable procurement centre choose karein
-        </p>
+        <p>{t.centreSubtitle}</p>
 
       </div>
 
+      {/* Centre List */}
       <div className="centre-list">
 
         {centres.map((centre) => (
-          <div className="centre-card" key={centre.id}>
 
+          <div
+            className="centre-card"
+            key={centre.id}
+          >
+
+            {/* Centre Name */}
             <div className="centre-top">
 
               <div>
                 <h2>{centre.name}</h2>
-                <span>{centre.distance}</span>
+
+                <span>
+                  📍 {centre.distance}
+                </span>
               </div>
 
             </div>
 
+            {/* Centre Information */}
             <div className="centre-info">
 
+              {/* Queue */}
               <div>
-                <strong>👥 {centre.queue}</strong>
-                <small>Queue</small>
+                <strong>
+                  👥 {centre.queue}
+                </strong>
+
+                <small>
+                  {t.queue}
+                </small>
               </div>
 
+              {/* Waiting Time */}
               <div>
-                <strong>⏱️ {centre.wait} min</strong>
-                <small>Estimated Wait</small>
+                <strong>
+                  ⏱️ {centre.wait} min
+                </strong>
+
+                <small>
+                  {t.estimatedWait}
+                </small>
               </div>
 
+              {/* Centre Load */}
               <div>
-                <strong>{centre.load}</strong>
-                <small>Centre Load</small>
+
+                <strong>
+                  {centre.load === "Low"
+                    ? t.low
+                    : centre.load === "Medium"
+                    ? t.medium
+                    : t.high}
+                </strong>
+
+                <small>
+                  {t.centreLoad}
+                </small>
+
               </div>
 
             </div>
 
-           <button
-  className="primary-button"
-  onClick={() =>
-    navigate(`/farmer/recommendation/${centre.id}`)
-  }
->
-  Get AI Recommendation →
-</button>
+            {/* AI Recommendation */}
+            <button
+              className="primary-button"
+              onClick={() =>
+                navigate(
+                  `/farmer/recommendation/${centre.id}`
+                )
+              }
+            >
+              {t.getRecommendation} →
+            </button>
 
           </div>
+
         ))}
 
       </div>

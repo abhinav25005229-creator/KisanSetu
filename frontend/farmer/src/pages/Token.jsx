@@ -1,4 +1,5 @@
 import { useNavigate } from "react-router-dom";
+import { useLanguage } from "../context/LanguageContext";
 
 const tokenData = {
   token: "WHT1024",
@@ -14,12 +15,15 @@ const tokenData = {
 export default function Token() {
   const navigate = useNavigate();
 
+  const { t } = useLanguage();
+
   return (
     <div className="page-container">
 
       <div className="page-header">
-        <h1>Booking Confirmed 🎉</h1>
-        <p>Aapka procurement slot successfully book ho gaya hai.</p>
+        <h1>{t.tokenTitle} 🎉</h1>
+
+        <p>{t.tokenSubtitle}</p>
       </div>
 
       <div className="token-card">
@@ -29,7 +33,7 @@ export default function Token() {
         </div>
 
         <p className="token-label">
-          Your Digital Token
+          {t.digitalToken}
         </p>
 
         <h2 className="token-number">
@@ -37,23 +41,23 @@ export default function Token() {
         </h2>
 
         <div className="token-status">
-          ✓ {tokenData.status}
+          ✓ {t.confirmed}
         </div>
 
         <div className="token-details">
 
           <div className="token-detail">
-            <span>📍 Centre</span>
+            <span>📍 {t.centre}</span>
             <strong>{tokenData.centre}</strong>
           </div>
 
           <div className="token-detail">
-            <span>📅 Date</span>
+            <span>📅 {t.date}</span>
             <strong>{tokenData.date}</strong>
           </div>
 
           <div className="token-detail">
-            <span>🕚 Slot</span>
+            <span>🕚 {t.slot}</span>
             <strong>{tokenData.slot}</strong>
           </div>
 
@@ -63,38 +67,37 @@ export default function Token() {
 
           <div>
             <strong>{tokenData.queuePosition}</strong>
-            <span>Queue Position</span>
+            <span>{t.queuePosition}</span>
           </div>
 
           <div>
             <strong>{tokenData.farmersAhead}</strong>
-            <span>Farmers Ahead</span>
+            <span>{t.farmersAhead}</span>
           </div>
 
           <div>
             <strong>{tokenData.estimatedWait} min</strong>
-            <span>Estimated Wait</span>
+            <span>{t.estimatedWait}</span>
           </div>
 
         </div>
 
         <div className="token-note">
-          💡 Aapko queue update aur turn approaching ki
-          notification milti rahegi.
+          💡 {t.queueUpdateNote}
         </div>
 
         <button
           className="primary-button"
           onClick={() => navigate("/farmer/live-queue")}
         >
-          View Live Queue →
+          {t.viewLiveQueue} →
         </button>
 
         <button
           className="secondary-button"
           onClick={() => navigate("/farmer/dashboard")}
         >
-          Go to Dashboard
+          {t.goDashboard}
         </button>
 
       </div>

@@ -1,5 +1,6 @@
 import { useState } from "react";
 import { useNavigate, useParams } from "react-router-dom";
+import { useLanguage } from "../context/LanguageContext";
 
 const slots = [
   {
@@ -28,17 +29,19 @@ export default function SlotBooking() {
   const navigate = useNavigate();
   const { centreId } = useParams();
 
+  const { t } = useLanguage();
+
   const [selectedDate, setSelectedDate] = useState("");
   const [selectedSlot, setSelectedSlot] = useState(null);
 
   const handleBooking = () => {
     if (!selectedDate) {
-      alert("Please select a date");
+      alert(t.selectDateAlert);
       return;
     }
 
     if (!selectedSlot) {
-      alert("Please select a time slot");
+      alert(t.selectTimeAlert);
       return;
     }
 
@@ -73,17 +76,17 @@ export default function SlotBooking() {
           ← Back
         </button>
 
-        <h1>Book Your Slot 🎫</h1>
+        <h1>{t.slotBookingTitle} 🎫</h1>
 
         <p>
-          Apni convenient date aur time select karein
+          {t.slotSubtitle}
         </p>
 
       </div>
 
       <div className="form-card">
 
-        <label>Select Date</label>
+        <label>{t.selectDate}</label>
 
         <input
           type="date"
@@ -96,7 +99,7 @@ export default function SlotBooking() {
 
       <div className="slot-section">
 
-        <h2>Available Time Slots</h2>
+        <h2>{t.availableTimeSlots}</h2>
 
         <div className="slot-grid">
 
@@ -123,7 +126,7 @@ export default function SlotBooking() {
                 </strong>
 
                 <span>
-                  {slot.available} slots available
+                  {slot.available} {t.slotsAvailable}
                 </span>
 
               </button>
@@ -138,7 +141,7 @@ export default function SlotBooking() {
         className="primary-button booking-button"
         onClick={handleBooking}
       >
-        Confirm Slot Booking →
+        {t.confirmSlotBooking} →
       </button>
 
     </div>

@@ -1,8 +1,11 @@
 import { useState } from "react";
 import { useNavigate } from "react-router-dom";
+import { useLanguage } from "../context/LanguageContext";
 
 export default function AddProduce() {
   const navigate = useNavigate();
+
+  const { t } = useLanguage();
 
   const [produce, setProduce] = useState({
     type: "",
@@ -42,7 +45,7 @@ export default function AddProduce() {
           ← Back
         </button>
 
-        <h1>Add Produce 🌾</h1>
+        <h1>{t.addProduceTitle} 🌾</h1>
 
         <p>
           Apni fasal ki details enter karein
@@ -54,7 +57,7 @@ export default function AddProduce() {
 
         <form onSubmit={handleSubmit}>
 
-          <label>Produce Type</label>
+          <label>{t.selectProduce}</label>
 
           <select
             name="type"
@@ -63,7 +66,7 @@ export default function AddProduce() {
             required
           >
             <option value="">
-              Select produce
+              {t.selectProduce}
             </option>
 
             <option value="Wheat">
@@ -83,14 +86,14 @@ export default function AddProduce() {
             </option>
           </select>
 
-          <label>Quantity</label>
+          <label>{t.quantity}</label>
 
           <div className="quantity-input">
 
             <input
               type="number"
               name="quantity"
-              placeholder="Example: 500"
+              placeholder={t.enterQuantity}
               value={produce.quantity}
               onChange={handleChange}
               min="1"
@@ -101,7 +104,9 @@ export default function AddProduce() {
 
           </div>
 
-          <label>Expected Date</label>
+          <label>
+            {t.expectedDate} ({t.optional})
+          </label>
 
           <input
             type="date"
@@ -114,7 +119,7 @@ export default function AddProduce() {
             type="submit"
             className="primary-button"
           >
-            Find Procurement Centres →
+            {t.findCentres} →
           </button>
 
         </form>

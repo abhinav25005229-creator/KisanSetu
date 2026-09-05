@@ -1,4 +1,5 @@
 import { useNavigate, useParams } from "react-router-dom";
+import { useLanguage } from "../context/LanguageContext";
 
 const recommendation = {
   centreName: "Darbhanga Main Centre",
@@ -14,6 +15,8 @@ export default function Recommendation() {
   const navigate = useNavigate();
   const { centreId } = useParams();
 
+  const { t } = useLanguage();
+
   return (
     <div className="page-container">
 
@@ -26,7 +29,7 @@ export default function Recommendation() {
           ← Back
         </button>
 
-        <h1>AI Recommendation 🤖</h1>
+        <h1>{t.recommendationTitle} 🤖</h1>
 
         <p>
           Aapke liye suitable centre aur slot
@@ -37,7 +40,7 @@ export default function Recommendation() {
       <div className="recommendation-card">
 
         <div className="recommendation-badge">
-          ⭐ Recommended for You
+          ⭐ {t.recommendedForYou}
         </div>
 
         <h2>
@@ -52,31 +55,31 @@ export default function Recommendation() {
 
           <div>
             <strong>👥 {recommendation.queue}</strong>
-            <span>Queue</span>
+            <span>{t.currentQueue}</span>
           </div>
 
           <div>
             <strong>⏱️ {recommendation.wait} min</strong>
-            <span>Expected Wait</span>
+            <span>{t.estimatedWait}</span>
           </div>
 
           <div>
             <strong>🟢 {recommendation.load}</strong>
-            <span>Centre Load</span>
+            <span>{t.centreLoad}</span>
           </div>
 
         </div>
 
         <div className="recommended-slot">
 
-          <span>🕚 Recommended Slot</span>
+          <span>🕚 {t.recommendedSlot}</span>
 
           <strong>
             {recommendation.slot}
           </strong>
 
           <small>
-            {recommendation.date}
+            {t.recommendedDate}
           </small>
 
         </div>
@@ -87,7 +90,7 @@ export default function Recommendation() {
             navigate(`/farmer/slot-booking/${centreId}`)
           }
         >
-          Choose This Slot →
+          {t.chooseSlot} →
         </button>
 
       </div>
