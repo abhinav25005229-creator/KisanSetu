@@ -5,6 +5,7 @@ import Dashboard from "./pages/Dashboard";
 import AddProduce from "./pages/AddProduce";
 import Centres from "./pages/Centres";
 import Recommendation from "./pages/Recommendation";
+import SlotBooking from "./pages/SlotBooking";
 function App() {
   return (
     <BrowserRouter>
@@ -24,6 +25,11 @@ function App() {
   path="/farmer/add-produce"
   element={<AddProduce />}
 />
+<Route
+  path="/farmer/slot-booking/:centreId"
+  element={<SlotBooking />}
+/>
+
         <Route path="/farmer/dashboard" element={<Dashboard />} />
       </Routes>
     </BrowserRouter>

@@ -388,3 +388,62 @@ input {
     grid-template-columns: 1fr;
   }
 }
+.slot-section {
+  margin-top: 25px;
+}
+
+.slot-section h2 {
+  margin-bottom: 15px;
+}
+
+.slot-grid {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: 14px;
+}
+
+.slot-card {
+  text-align: left;
+  padding: 18px;
+  background: white;
+  border: 2px solid transparent;
+  border-radius: 14px;
+  cursor: pointer;
+  box-shadow: 0 4px 15px rgba(0, 0, 0, 0.06);
+}
+
+.slot-card strong {
+  display: block;
+  font-size: 16px;
+}
+
+.slot-card span {
+  display: block;
+  margin-top: 7px;
+  color: #6b7280;
+}
+
+.slot-card:hover {
+  border-color: #16a34a;
+}
+
+.slot-card.selected {
+  border-color: #16a34a;
+  background: #f0fdf4;
+}
+
+.slot-card:disabled {
+  opacity: 0.5;
+  cursor: not-allowed;
+}
+
+.booking-button {
+  width: 100%;
+  margin-top: 20px;
+}
+
+@media (max-width: 600px) {
+  .slot-grid {
+    grid-template-columns: 1fr;
+  }
+}
